@@ -8,12 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @RestControllerAdvice
-public class ControllerAdviceExceptionHandler {
+public class ControllerAdviceExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UnknownException.class)
     public ResponseEntity<Object> handleCustomException(UnknownException e) {
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;

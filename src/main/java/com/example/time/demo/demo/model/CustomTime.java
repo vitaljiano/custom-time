@@ -17,7 +17,7 @@ import java.time.*;
 @AllArgsConstructor
 @Entity(name = "time")
 //@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CustomTime  {
+public class CustomTime {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
