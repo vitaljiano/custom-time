@@ -14,17 +14,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.matches;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -35,11 +31,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest
 public class CustomTimeControllerTest {
 
+    public static final String pathUrl = "/api/v1/time";
+
     List<CustomTime> timeList = ListCustomTime.getListCustomTime();
 
     String expectedResponse = "{ " +
-            "\"localDateTime\": \"2021-11-15T10:13:00\"," +
-            "\"localTime\": \"10:13:00\", " +
+            "\"localDateTime\": \"2021-11-15T10:13\"," +
+            "\"localTime\": \"10:13\", " +
             "\"offsetDateTime\": \"2021-11-15T10:13:00.000000002Z\"," +
             "\"zonedDateTime\": \"2021-11-15T10:13:00.000000001+02:00\"," +
             "\"instantTime\": \"2017-07-14T02:40:00Z\"}";
@@ -56,7 +54,7 @@ public class CustomTimeControllerTest {
     public void getCustomTimeByIdTest() throws Exception {
         when(timeService.findById(anyLong())).thenReturn(timeList.get(4));
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/{id}", 4)
+                .get(pathUrl+"/{id}", 4)
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
@@ -69,10 +67,10 @@ public class CustomTimeControllerTest {
     public void getAllCustomTimesTest() throws Exception {
         when(timeService.getAll()).thenReturn(timeList);
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/")
+                .get(pathUrl+"/")
                 .accept(MediaType.APPLICATION_JSON);
 
-        var response = mockMvc.perform(requestBuilder)
+        mockMvc.perform(requestBuilder)
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(
@@ -81,7 +79,7 @@ public class CustomTimeControllerTest {
                                 "{\"localTime\":\"23:59:59\"}, " +
                                 "{\"localTime\":\"23:59:59\"}, " +
                                 "{\"localTime\":\"23:59:59\"}, " +
-                                "{\"localTime\":\"10:13:00\"}" +
+                                "{\"localTime\":\"10:13\"}" +
                                 "]", false))
                 .andReturn();
     }
@@ -90,7 +88,7 @@ public class CustomTimeControllerTest {
     public void createTimeTest() throws Exception {
         when(timeService.save(timeList.get(0))).thenReturn(timeList.get(0));
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/")
+                .post(pathUrl+"/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(timeList.get(0)));
 
@@ -100,7 +98,7 @@ public class CustomTimeControllerTest {
 
     @Test
     public void shouldReturnCorrectFormatStringWhenShowTimeNow() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/show-time"))
+        MvcResult mvcResult = mockMvc.perform(get(pathUrl+"/show-time"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();

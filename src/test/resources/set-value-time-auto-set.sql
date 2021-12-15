@@ -1,5 +1,4 @@
 delete from time;
-
-insert into time (id, instant_time, local_date_time, local_time, offset_time, zoned_date_time)
-values (0, '2021-11-15 10:13:00', '2021-11-15T08:13:00', '10:13:00', '2021-11-15T08:13:00+02:00', '2021-11-15T08:13:00+02:00'),
+insert into time (id, instant_time, local_date_time, local_time, offset_time, zoned_date_time)values
+(0, '2021-11-15 10:13:00', '2021-11-15T08:13:00', '10:13:00', '2021-11-15T08:13:00+02:00', '2021-11-15T08:13:00+02:00'),
 (1, '2021-11-15 01:13:00', '2021-11-15T08:13:00', '10:13:00', '2021-11-15T08:13:00+02:00', '2021-11-15T08:13:00+02:00');

@@ -28,7 +28,7 @@ public class JsonAssertTest {
 
     @Test
     public void validateJson() throws JSONException {
-        JSONAssert.assertEquals("{\"localTime\":\"10:13:00\"}", resultJsonString,  JSONCompareMode.LENIENT);
+        JSONAssert.assertEquals("{\"localTime\":\"10:13\"}", resultJsonString,  JSONCompareMode.LENIENT);
     }
 
 
