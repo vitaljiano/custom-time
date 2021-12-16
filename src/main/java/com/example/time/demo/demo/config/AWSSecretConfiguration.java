@@ -23,7 +23,7 @@ import java.util.Properties;
 @Component
 public class AWSSecretConfiguration implements ApplicationListener<ApplicationPreparedEvent> {
     private static final String AWS_SM_REGION = "eu-central-1";
-    private static final String AWS_SECRETE_NAME = "MyAppDemoTimeSecret";
+    private static final String AWS_SECRETE_NAME = "MyAppDemoTimeSecret2";
     private final static String SPRING_DATASOURCE_HOST = "spring.datasource.url";
     private final static String SPRING_DATASOURCE_USERNAME = "spring.datasource.username";
     private final static String SPRING_DATASOURCE_PASSWORD = "spring.datasource.password";
