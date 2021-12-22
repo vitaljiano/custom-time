@@ -13,33 +13,30 @@ jobs:
           DB_DRIVER: com.mysql.cj.jdbc.Driver
           DB_PASS: "123456789"
 
-      - image: mysql:8.0
+      - image: circleci/mysql:8.0.4
         environment:
-          MYSQL_ROOT_PASSWORD: '123456789'
-    working_directory: ~/repo
+          MYSQL_ROOT_PASSWORD: 123456789
+          MYSQL_DATABASE:
+            demo_time
+
     steps:
       - checkout
-#      - run:
-#          name: Wait for Database Connection
-#          # preinstalled in circleci/* docker image
-#          command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      #install mysql client
-      - run: sudo apt-get install mysql-server
-      # create databases
-      - run: mysql -h 127.0.0.1 -u root -e "create database demo_time"
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: mvn dependency:go-offline
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-          # run tests!
+      - run:
+          # Our primary container isn't MYSQL so run a sleep command until it's ready.
+          name: Waiting for MySQL to be ready
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z 127.0.0.1 3306 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for MySQL && exit 1
+      - run:
+          name: Install MySQL CLI; Import dummy data; run an example query
+          command: |
+            sudo apt-get install default-mysql-client
+            mysql -h 127.0.0.1 -u user -ppassw0rd demo_time < sql-data/dummy.sql
       - run:
           name: Build
           command: mvn -B -DskipTests clean package
