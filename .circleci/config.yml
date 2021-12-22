@@ -21,7 +21,7 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: '123456789'
     working_directory: ~/repo
-      steps:
+    steps:
       - checkout
       - run:
           name: Wait for Database Connection
@@ -35,9 +35,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            -  v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
-            -  v1-dependencies-
+            - v1-dependencies-
       - run: mvn dependency:go-offline
       - save_cache:
           paths:
@@ -47,10 +47,11 @@ jobs:
       - run:
           name: Build
           command: mvn -B -DskipTests clean package
-            # Then run your tests!
+          # Then run your tests!
       - run:
           name: Test
-          command: mvn test
+          command:
+            mvn test
 workflows:
   version: 2
   build-deploy:
