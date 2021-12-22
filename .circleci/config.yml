@@ -24,7 +24,7 @@ jobs:
 #          # preinstalled in circleci/* docker image
 #          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       #install mysql client
-      - run: apt-get install mysql-server
+      - run: sudo apt-get install mysql-server
       # create databases
       - run: mysql -h 127.0.0.1 -u root -e "create database demo_time"
 
