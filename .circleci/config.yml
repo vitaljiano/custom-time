@@ -19,10 +19,10 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: Wait for Database Connection
-          # preinstalled in circleci/* docker image
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+#      - run:
+#          name: Wait for Database Connection
+#          # preinstalled in circleci/* docker image
+#          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       #install mysql client
       - run: sudo apt-get install mysql-client
       # create databases
