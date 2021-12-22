@@ -1,54 +1,44 @@
-# Java Maven Mysql CircleCI 2.1 configuration file
-
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: maven:3.8.4-openjdk-17-slim
+      - image: circleci/openjdk:11.0.3-jdk-stretch
         #specify system properties
         environment:
           DB_ROOT_USER: root
-          DB_URL: jdbc:mysql://localhost:3306/demo_time
+          DB_URL: jdbc:mysql://localhost:3306/testdb
           DB_DRIVER: com.mysql.cj.jdbc.Driver
-          DB_PASS: "123456789"
-
-      - image: circleci/mysql:8.0.4
+          DB_PASS: ""
+        # Customize the JVM maximum heap limit
+        # Specify our database service here
+        # CircleCI maintains a library of pre-built images
+      - image: circleci/mysql:8.0
         environment:
-          MYSQL_ROOT_PASSWORD: 123456789
-          MYSQL_DATABASE:
-            demo_time
-
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: '123456789'
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
-          command: |
-            apt-get update
-            apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-            add-apt-repository \ "deb [arch=amd64] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) \ stable"
-            apt-get update
-            apt-get install docker-ce docker-ce-cli containerd.io
-
-      - run:
-          # Our primary container isn't MYSQL so run a sleep command until it's ready.
-          name: Waiting for MySQL to be ready
+          name: Wait for Database Connection
+          # preinstalled in circleci/* docker image
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      #install mysql client
+      - run: sudo apt-get install mysql-client
+      # create databases
+      - run: mysql -h 127.0.0.1 -u root -e "create database demo_time"
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+          # run tests!
       - run:
-          name: Install MySQL CLI; Import dummy data; run an example query
-          command: |
-            sudo apt-get install default-mysql-client
-            mysql -h 127.0.0.1 -u user -ppassw0rd demo_time < sql-data/dummy.sql
-      - run:
-          name: Build
-          command: mvn -B -DskipTests clean package
-          # Then run your tests!
-      - run:
-          name: Test
-          command:
-            mvn test
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - build
+          mvn integration-test
