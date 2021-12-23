@@ -7,7 +7,7 @@ jobs:
         #specify system properties
         environment:
           DB_ROOT_USER: root
-          DB_URL: jdbc:mysql://localhost:3306/testdb
+          DB_URL: jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC
           DB_DRIVER: com.mysql.cj.jdbc.Driver
           DB_PASS: "123456789"
         # Customize the JVM maximum heap limit
