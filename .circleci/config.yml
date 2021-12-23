@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:11.0.3-jdk-stretch
+      - image: maven:3.8.4-openjdk-17
         #specify system properties
         environment:
           DB_ROOT_USER: root
@@ -13,7 +13,7 @@ jobs:
         # Customize the JVM maximum heap limit
         # Specify our database service here
         # CircleCI maintains a library of pre-built images
-      - image: circleci/mysql:8.0
+      - image: mysql:8.0.27
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_ROOT_PASSWORD: '123456789'
