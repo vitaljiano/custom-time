@@ -28,8 +28,7 @@ jobs:
       - run: sudo apt-get update && sudo apt-get dist-upgrade
       - run: sudo apt-get install mysql-client
       # create databases
-      - run: mysql alter user 'vitalik'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456789';
-      - run: mysql -h 127.0.0.1 -u root -e "create database demo_time"
+      - run: mysql -h 127.0.0.1 -u root -p123456789 -e "create database demo_time"
       # Download and cache dependencies
       - restore_cache:
           keys:
