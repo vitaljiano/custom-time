@@ -28,8 +28,8 @@ jobs:
       - run: sudo apt-get update && sudo apt-get dist-upgrade
       - run: sudo apt-get install mysql-client
       # create databases
-      - run: mysql -h 127.0.0.1 -u tester -p123456789 -e "SET @@global.time_zone = '+02:00'"
-      - run: mysql -h 127.0.0.1 -u tester -p123456789 -e "create database demo_time_test"
+      - run: mysql -h 127.0.0.1 -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
+      - run: mysql -h 127.0.0.1 -u root -p123456789 -e "create database demo_time_test"
 
       # Download and cache dependencies
       - restore_cache:
