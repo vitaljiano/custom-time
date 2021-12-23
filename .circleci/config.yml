@@ -5,11 +5,11 @@ jobs:
       # specify the version you desire here
       - image: cimg/openjdk:17.0.1-browsers
         #specify system properties
-#        environment:
-#          DB_ROOT_USER: root
-#          DB_URL: jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC
-#          DB_DRIVER: com.mysql.cj.jdbc.Driver
-#          DB_PASS: "123456789"
+        environment:
+          DB_ROOT_USER: root
+          DB_URL: jdbc:mysql://localhost:3306/testdb?serverTimezone=UTC
+          DB_DRIVER: com.mysql.cj.jdbc.Driver
+          DB_PASS: "123456789"
         # Customize the JVM maximum heap limit
         # Specify our database service here
         # CircleCI maintains a library of pre-built images
@@ -42,4 +42,4 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
           # run tests!
       - run:
-          mvn test
+          mvn -e test
