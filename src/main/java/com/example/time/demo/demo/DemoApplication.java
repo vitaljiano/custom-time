@@ -11,5 +11,4 @@ public class DemoApplication {
         app.addListeners(new AWSSecretConfiguration());
         app.run(args);
     }
-
 }

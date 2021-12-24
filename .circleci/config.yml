@@ -5,10 +5,8 @@ jobs:
       # specify the version you desire here
       - image: cimg/openjdk:17.0.1-browsers
         #specify system properties
-        environment:
-          AWS_ACCESS_KEY_ID: AKIAQL65CU3LN4AJ3Y5P
-          AWS_SECRET_ACCESS_KEY: 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
-          # Customize the JVM maximum heap limit
+
+        # Customize the JVM maximum heap limit
         # Specify our database service here
         # CircleCI maintains a library of pre-built images
       - image: mysql:8.0.27
@@ -26,6 +24,7 @@ jobs:
       - run: sudo apt-get update && sudo apt-get dist-upgrade
       - run: sudo apt-get install mysql-client
       # create databases
+
       - run: mysql -h 127.0.0.1 -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
       - run: mysql -h 127.0.0.1 -u root -p123456789 -e "create database demo_time_test"
 

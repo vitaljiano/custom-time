@@ -8,7 +8,7 @@ package com.example.time.demo.demo.testcontainer;
 //import org.testcontainers.junit.jupiter.Testcontainers;
 //import org.testcontainers.utility.DockerImageName;
 //
-//@TestPropertySource("/applicationForTestContainers.properties")
+//@TestPropertySource("/application-testContainers.properties")
 //@Testcontainers
 public class MainTest {
 //
