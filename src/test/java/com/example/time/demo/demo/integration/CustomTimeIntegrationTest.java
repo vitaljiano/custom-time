@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ActiveProfiles("test")
+@ActiveProfiles("${spring.profiles.active}")
 public class CustomTimeIntegrationTest extends CustomTimeAbstractIntegrationTest {
     String customTimeInstance = JsonCustomTimeParser.getResourceFileAsString("test-json/CustomTimeInstance.json");
     List<CustomTime> timeList = ListCustomTime.getListCustomTime();
