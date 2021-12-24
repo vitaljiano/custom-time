@@ -2,7 +2,7 @@
   "id": 0,
   "localDateTime": "2021-11-15T10:13",
   "localTime": "10:13",
-  "offsetDateTime": "2021-11-15T10:13:00+02:00",
+  "offsetDateTime": "2021-11-15T10:13:00Z",
   "zonedDateTime": "2021-11-15T08:13:00Z",
   "instantTime": "2021-11-15T10:13:00Z"
 }
