@@ -7,6 +7,7 @@ import com.example.time.demo.demo.util.ListCustomTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -18,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Profile("test")
+@ActiveProfiles("test")
 public class CustomTimeIntegrationTest extends CustomTimeAbstractIntegrationTest {
     String customTimeInstance = JsonCustomTimeParser.getResourceFileAsString("test-json/CustomTimeInstance.json");
     List<CustomTime> timeList = ListCustomTime.getListCustomTime();
