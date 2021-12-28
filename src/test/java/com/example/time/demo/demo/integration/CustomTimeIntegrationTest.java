@@ -34,7 +34,7 @@ public class CustomTimeIntegrationTest extends CustomTimeAbstractIntegrationTest
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(customTimeInstance));
+                .andExpect(content().json( "{\"localDateTime\":\"2021-11-15T08:13\"}",false));
     }
 
     @Sql(value = "/clear-data-after-testing.sql")
