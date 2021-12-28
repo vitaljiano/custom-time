@@ -43,3 +43,7 @@ jobs:
           # run tests!
       - run:
           mvn -e test -DargLine="-Dspring.profiles.active=cicd"
+    deploy:
+      docker:
+        - image: cimg/<language>:<version TAG>
+
