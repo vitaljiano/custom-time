@@ -14,6 +14,8 @@ jobs:
       - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
       - run: mysql -u root -p123456789 -e "create database demo_time_test"
       - run: mysql  -u root -p123456789 -e "exit"
+      - run: sudo apt-get install oracle-java17-installer oracle-java17-set-default curl -y
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
