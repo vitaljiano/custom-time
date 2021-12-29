@@ -19,7 +19,7 @@ jobs:
       - run: sudo mv jdk-17 /opt/
       - run: sudo export JAVA_HOME=/opt/jdk-17
       - run: sudo export PATH=$PATH:$JAVA_HOME/bin
-      - run: sudo source ~/.bashrc
+
 
         #      - run: sudo add-apt-repository ppa:linuxuprising/java
         #      - run: sudo apt update
