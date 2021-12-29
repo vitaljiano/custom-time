@@ -11,4 +11,4 @@ jobs:
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
       - run: sudo apt-get install mysql-server
       - run: sudo systemctl start mysql
-      - run: /usr/bin/mysql -u root -p123456789
+      - run: /usr/bin/mysql -u root -p 123456789
