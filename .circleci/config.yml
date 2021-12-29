@@ -11,6 +11,5 @@ jobs:
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
       - run: sudo apt-get install mysql-server
       - run: sudo systemctl start mysql
-      - run: sudo mysql -u root -p123456789
-      - run: mysql -e "SET @@global.time_zone = UTC"
-      - run: mysql -e "create database demo_time_test"
+      - run: mysql -u root -p123456789 -e "SET @@global.time_zone = UTC"
+      - run: mysql -u root -p123456789 -e "create database demo_time_test"
