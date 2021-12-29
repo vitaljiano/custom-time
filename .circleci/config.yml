@@ -17,8 +17,7 @@ jobs:
       - run: wget https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz
       - run: sudo tar xvf openjdk-17_linux-x64_bin.tar.gz
       - run: sudo mv jdk-17 /opt/
-      - run: sudo export JAVA_HOME=/opt/jdk-17
-      - run: sudo export PATH=$PATH:$JAVA_HOME/bin
+
 
 
         #      - run: sudo add-apt-repository ppa:linuxuprising/java
