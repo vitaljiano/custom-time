@@ -29,11 +29,11 @@ jobs:
         #      - run: sudo /usr/bin/debconf-set-selections
         #      - run: sudo apt-get -y install oracle-java17-installer --install-recommends
 
-        - restore_cache:
-            keys:
-              - v1-dependencies-{{ checksum "pom.xml" }}
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
               # fallback to using the latest cache if no exact match is found
-              - v1-dependencies-
+            - v1-dependencies-
         - run: mvn dependency:go-offline
 
           # run tests!
