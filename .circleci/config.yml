@@ -6,7 +6,7 @@ jobs:
       image: ubuntu-1604:202007-01
     resource_class: medium
     steps:
-      - run: sudo apt update && sudo apt upgrade -y
+      - run: sudo apt update
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
       - run: sudo apt-get install mysql-server
@@ -14,6 +14,8 @@ jobs:
       - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
       - run: mysql -u root -p123456789 -e "create database demo_time_test"
       - run: mysql  -u root -p123456789 -e "exit"
+      - run: sudo add-apt-repository ppa:linuxuprising/java
+      - run: sudo apt update
       - run: sudo apt-get install oracle-java17-installer oracle-java17-set-default curl -y
 
       - restore_cache:
