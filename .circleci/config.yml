@@ -1,14 +1,10 @@
 version: 2.1
+
 jobs:
   build:
     machine:
       image: ubuntu-1604:202007-01
+    resource_class: small
     steps:
-      - checkout
-    resource_class: large
-    - run: sudo apt-get install mysql-client
-    - run: sudo apt-get update && sudo apt-get dist-upgrade
-    - run: mysql -u root -p123456789
-    - run: mysql -h 127.0.0.1 -u root -p123456789 -e "SET @@global.time_zone = UTC"
-    - run: mysql -h 127.0.0.1 -u root -p123456789 -e "create database demo_time_test"
-
+      - run: sudo apt-get update && sudo apt-get dist-upgrade
+      - run: sudo apt-get install mysql-client
