@@ -22,12 +22,12 @@ jobs:
       - run: export PATH=$PATH:$JAVA_HOME/bin
       - run: source ~/.bashrc
       - run: mvn verify
-      - restore_cache:
-         keys:
-              - v1-dependencies-{{ checksum "pom.xml" }}
-                # fallback to using the latest cache if no exact match is found
-              - v1-dependencies-
-          - run: mvn dependency:go-offline
+#      - restore_cache:
+#         keys:
+#              - v1-dependencies-{{ checksum "pom.xml" }}
+#                # fallback to using the latest cache if no exact match is found
+#              - v1-dependencies-
+#          - run: mvn dependency:go-offline
 
             # run tests!
       - run: mvn -e test -DargLine="-Dspring.profiles.active=cicd"
