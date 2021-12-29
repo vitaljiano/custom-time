@@ -11,5 +11,19 @@ jobs:
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
       - run: sudo apt-get install mysql-server
       - run: sudo systemctl start mysql
-      - run: mysql -u root -p123456789 -e "SET @@global.time_zone = +02:00"
+      - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
       - run: mysql -u root -p123456789 -e "create database demo_time_test"
+      - run: mysql exit
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+            - run: mvn dependency:go-offline
+            - save_cache:
+                paths:
+                  - ~/.m2
+                key: v1-dependencies-{{ checksum "pom.xml" }}
+                # run tests!
+            - run:
+                mvn -e test -DargLine="-Dspring.profiles.active=cicd"
