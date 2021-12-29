@@ -6,7 +6,7 @@ jobs:
       image: ubuntu-1604:202007-01
     resource_class: medium
     steps:
-      - run: sudo apt-get update
+      - run: sudo apt update && sudo apt upgrade -y
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
       - run: sudo apt-get install mysql-server
