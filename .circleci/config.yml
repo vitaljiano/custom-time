@@ -6,6 +6,6 @@ jobs:
       image: ubuntu-1604:202007-01
     resource_class: small
     steps:
-#      - run: sudo apt-get update && sudo apt-get dist-upgrade
+      - run: sudo apt-get update
       - run: sudo apt-get install mysql-client
       - run: mysql -u root -p123456789
