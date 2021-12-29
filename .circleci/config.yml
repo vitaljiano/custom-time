@@ -4,7 +4,7 @@ jobs:
   build:
     machine:
       image: ubuntu-1604:202007-01
-    resource_class: small
+    resource_class: large
     steps:
       - run: sudo apt-get update
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
