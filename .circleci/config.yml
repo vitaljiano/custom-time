@@ -22,7 +22,7 @@ jobs:
       - run: export PATH=$PATH:$JAVA_HOME/bin
       - run: source ~/.bashrc
 
-      - run: wget https://www.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -P /tmp
+      - run: wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries//apache-maven-3.6.3-bin.tar.gz -P /tmp
       - run: sudo tar xf /tmp/apache-maven-*.tar.gz -C /opt
       - run: export M2_HOME=/opt/maven
       - run: export MAVEN_HOME=/opt/maven
