@@ -12,3 +12,5 @@ jobs:
       - run: sudo apt-get install mysql-server
       - run: sudo systemctl start mysql
       - run: sudo mysql -u root -p123456789
+      - run: mysql -e "SET @@global.time_zone = UTC"
+      - run: mysql -e "create database demo_time_test"
