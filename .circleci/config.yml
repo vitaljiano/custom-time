@@ -14,7 +14,11 @@ jobs:
       - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
       - run: mysql -u root -p123456789 -e "create database demo_time_test"
       - run: mysql  -u root -p123456789 -e "exit"
-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+              # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run: mvn dependency:go-offline
 
         # run tests!
