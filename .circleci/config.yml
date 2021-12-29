@@ -16,9 +16,9 @@ jobs:
       - run: mysql  -u root -p123456789 -e "exit"
       - run: sudo add-apt-repository ppa:linuxuprising/java
       - run: sudo apt update
-      - run: echo debconf shared/accepted-oracle-license-v1-1 select true
+      - run: echo debconf shared/accepted-oracle-license-v1-1 select true | \
       - run: sudo debconf-set-selections
-      - run: echo debconf shared/accepted-oracle-license-v1-1 seen true
+      - run: echo debconf shared/accepted-oracle-license-v1-1 seen true | \
       - run: sudo debconf-set-selections
       - run: sudo apt-get install oracle-java17-installer --install-recommends
 
