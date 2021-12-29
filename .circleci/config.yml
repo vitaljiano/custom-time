@@ -4,11 +4,11 @@ jobs:
   build:
     machine:
       image: ubuntu-1604:202007-01
-    resource_class: large
+    resource_class: medium
     steps:
       - run: sudo apt-get update
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
       - run: sudo apt-get install mysql-server
       - run: sudo systemctl start mysql
-      - run: /usr/bin/mysql -u root -p 123456789
+      - run: sudo mysql -u root -p123456789
