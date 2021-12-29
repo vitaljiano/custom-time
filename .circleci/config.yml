@@ -22,22 +22,12 @@ jobs:
       - run: export PATH=$PATH:$JAVA_HOME/bin
       - run: source ~/.bashrc
 
+        - restore_cache:
+          keys:
+              - v1-dependencies-{{ checksum "pom.xml" }}
+                # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
+          - run: mvn dependency:go-offline
 
-
-        #      - run: sudo add-apt-repository ppa:linuxuprising/java
-        #      - run: sudo apt update
-        #      - run: echo debconf shared/accepted-oracle-license-v1-1 select true
-        #      - run: sudo /usr/bin/debconf-set-selections
-        #      - run: echo debconf shared/accepted-oracle-license-v1-1 seen true
-        #      - run: sudo /usr/bin/debconf-set-selections
-        #      - run: sudo apt-get -y install oracle-java17-installer --install-recommends
-
-#      - restore_cache:
-#        keys:
-#            - v1-dependencies-{{ checksum "pom.xml" }}
-#              # fallback to using the latest cache if no exact match is found
-#            - v1-dependencies-
-#        - run: mvn dependency:go-offline
-
-          # run tests!
+            # run tests!
       - run: mvn -e test -DargLine="-Dspring.profiles.active=cicd"
