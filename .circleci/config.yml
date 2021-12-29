@@ -8,6 +8,5 @@ jobs:
     steps:
       - run: sudo apt-get update
       - run: sudo apt-get install mysql-server
-      - run: sudo mysql_secure_installation utility
       - run: sudo systemctl start mysql
       - run: /usr/bin/mysql -u root
