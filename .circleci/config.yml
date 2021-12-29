@@ -28,7 +28,7 @@ jobs:
 #      - run: export M2_HOME=/opt/maven
 #      - run: export MAVEN_HOME=/opt/maven
 #      - run: export PATH=${M2_HOME}/bin:${PATH}
-      - run: mvn verify
+        - run: mvn verify
 #      - restore_cache:
 #         keys:
 #              - v1-dependencies-{{ checksum "pom.xml" }}
@@ -37,4 +37,4 @@ jobs:
 #          - run: mvn dependency:go-offline
 
             # run tests!
-      - run: mvn -e test -DargLine="-Dspring.profiles.active=cicd"
+        - run: mvn -e test -DargLine="-Dspring.profiles.active=cicd"
