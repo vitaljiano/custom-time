@@ -3,8 +3,8 @@ version: 0.2
 phases:
   install:
     commands:
-      - sudo apt update -y
-      - sudo apt install -y yum-utils
+      - sudo apt-get update -y
+      - sudo apt-get install -y yum-utils
       - uname -a
       - sudo yum update -y
       - echo list available openjdk packages
