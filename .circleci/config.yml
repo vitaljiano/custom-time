@@ -8,14 +8,14 @@ jobs:
     resource_class: medium
     steps:
       - checkout
-#      - run: sudo apt update
-#      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
-#      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
-#      - run: sudo apt-get install mysql-server
-#      - run: sudo systemctl start mysql
-#      - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
-#      - run: mysql -u root -p123456789 -e "create database demo_time_test"
-#      - run: mysql  -u root -p123456789 -e "exit"
+      - run: sudo apt update
+      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
+      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
+      - run: sudo apt-get install mysql-server
+      - run: sudo systemctl start mysql
+      - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
+      - run: mysql -u root -p123456789 -e "create database demo_time_test"
+      - run: mysql  -u root -p123456789 -e "exit"
       - run: wget https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz
       - run: sudo tar xvf openjdk-17_linux-x64_bin.tar.gz
       - run: sudo mv jdk-17 /usr/lib/jvm/
@@ -25,21 +25,19 @@ jobs:
 
       - run: sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk-17/bin/java" 1
       - run: sudo update-alternatives --set java /usr/lib/jvm/jdk-17/bin/java
-
       - run: java -version
-#      - run: sudo update-java-alternatives -s java-8-oracle
 
-#      - run: wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries//apache-maven-3.6.3-bin.tar.gz -P /tmp
-#      - run: sudo tar xf /tmp/apache-maven-*.tar.gz -C /opt
-#      - run: export M2_HOME=/usr/local/apache-maven
-#      - run: export MAVEN_HOME=/usr/local/apache-maven
-#      - run: export PATH=${M2_HOME}/bin:${PATH}
-#      - run: java -versio
-#      - run: mvn -version
-#
-#
-#      - run: mvn dependency:go-offline
+      - run: wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries//apache-maven-3.6.3-bin.tar.gz -P /tmp
+      - run: sudo tar xf /tmp/apache-maven-*.tar.gz -C /opt
+      - run: export M2_HOME=/usr/local/apache-maven
+      - run: export MAVEN_HOME=/usr/local/apache-maven
+      - run: export PATH=${M2_HOME}/bin:${PATH}
+      - run: java -versio
+      - run: mvn -version
+
+
+      - run: mvn dependency:go-offline
 #
 #
 #            # run tests!
-#      - run: mvn -e test -DargLine="-Dspring.profiles.active=cicd"
+      - run: mvn -e test -DargLine="-Dspring.profiles.active=cicd"
