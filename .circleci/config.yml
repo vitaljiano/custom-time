@@ -8,14 +8,14 @@ jobs:
     resource_class: medium
     steps:
       - checkout
-      - run: sudo apt update
-      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
-      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
-      - run: sudo apt-get install mysql-server
-      - run: sudo systemctl start mysql
-      - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
-      - run: mysql -u root -p123456789 -e "create database demo_time_test"
-      - run: mysql  -u root -p123456789 -e "exit"
+#      - run: sudo apt update
+#      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
+#      - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
+#      - run: sudo apt-get install mysql-server
+#      - run: sudo systemctl start mysql
+#      - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
+#      - run: mysql -u root -p123456789 -e "create database demo_time_test"
+#      - run: mysql  -u root -p123456789 -e "exit"
       - run: wget https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz
       - run: sudo tar xvf openjdk-17_linux-x64_bin.tar.gz
       - run: sudo mv jdk-17 /usr/lib/jvm/
@@ -25,7 +25,7 @@ jobs:
 
       - run: sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk-17/bin/java" 1
       - run: sudo update-alternatives --set java /usr/lib/jvm/jdk-17/bin/java
-      - run: sudo update-java-alternatives --list
+      - run: sudo update-java-alternatives
       - run: java -version
 #      - run: sudo update-java-alternatives -s java-8-oracle
 
