@@ -4,9 +4,10 @@ jobs:
   build:
     working_directory: ~/project
     machine:
-      image: ubuntu-1604:202007-01
+      image: ubuntu-2004:202111-02
     resource_class: medium
     steps:
+      - checkout
       - run: sudo apt update
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
       - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
@@ -28,9 +29,7 @@ jobs:
       - run: export MAVEN_HOME=/usr/local/apache-maven
       - run: export PATH=${M2_HOME}/bin:${PATH}
       - run: mvn -version
-      - checkout
-      - run: ls -la
-      - run: ls -R
+
 
       - run: mvn dependency:go-offline
 
