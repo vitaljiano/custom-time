@@ -3,6 +3,8 @@ version: 0.2
 phases:
   build:
     commands:
+      - java -version
+      - mvn -version
       - echo Build started on `date`
       - mvn compile
       - mvn test -DargLine="-Dspring.profiles.active=cicd"
