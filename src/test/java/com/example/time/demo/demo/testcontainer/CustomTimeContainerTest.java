@@ -77,7 +77,7 @@ public class CustomTimeContainerTest extends CustomTimeAbstractIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[" +
                         "{\"instantTime\":\"2021-11-15T10:13:00Z\"}," +
-                        "{\"instantTime\":\"2021-11-14T23:13:00Z\"}" +
+                        "{\"instantTime\":\"2021-11-15T01:13:00Z\"}" +
                         "]", false))
                 .andReturn();
     }
