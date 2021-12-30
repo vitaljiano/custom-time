@@ -28,8 +28,9 @@ jobs:
       - run: export MAVEN_HOME=/usr/local/apache-maven
       - run: export PATH=${M2_HOME}/bin:${PATH}
       - run: mvn -version
-      - run: mvn dependency:go-offline
       - run: sudo ls
+      - run: mvn dependency:go-offline
+
 
             # run tests!
       - run: mvn -e test -DargLine="-Dspring.profiles.active=cicd"
