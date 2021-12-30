@@ -50,7 +50,7 @@ public class CustomTimeContainerTest extends CustomTimeAbstractIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json("{\"instantTime\":\"2021-11-15T08:13:00Z\"}", false));
+                .andExpect(content().json("{\"instantTime\":\"2021-11-15T10:13:00Z\"}", false));
     }
 
     @Sql(value = "/clear-data-after-testing.sql")
@@ -76,7 +76,7 @@ public class CustomTimeContainerTest extends CustomTimeAbstractIntegrationTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[" +
-                        "{\"instantTime\":\"2021-11-15T08:13:00Z\"}," +
+                        "{\"instantTime\":\"2021-11-15T10:13:00Z\"}," +
                         "{\"instantTime\":\"2021-11-14T23:13:00Z\"}" +
                         "]", false))
                 .andReturn();
