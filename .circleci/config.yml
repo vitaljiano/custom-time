@@ -28,8 +28,9 @@ jobs:
       - run: export MAVEN_HOME=/usr/local/apache-maven
       - run: export PATH=${M2_HOME}/bin:${PATH}
       - run: mvn -version
+      - checkout
       - run: ls -la
-      - run: ls -R /tmp
+      - run: ls -R
 
       - run: mvn dependency:go-offline
 
