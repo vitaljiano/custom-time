@@ -25,7 +25,7 @@ jobs:
 
       - run: sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk-17/bin/java" 1
       - run: sudo update-alternatives --set java /usr/lib/jvm/jdk-17/bin/java
-      - run: sudo update-java-alternatives
+
       - run: java -version
 #      - run: sudo update-java-alternatives -s java-8-oracle
 
