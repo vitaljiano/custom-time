@@ -2,6 +2,7 @@ version: 2.1
 
 jobs:
   build:
+    working_directory: ~/project
     machine:
       image: ubuntu-1604:202007-01
     resource_class: medium
