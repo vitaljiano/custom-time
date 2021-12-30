@@ -1,6 +1,33 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - uname -a
+      - yum update -y
+      - echo list available openjdk packages
+      - yum list *openjdk*
+      - echo install openjdk packages
+      - yum install -y java-latest-openjdk-devel java-latest-openjdk-jmods
+      - echo show default java version
+      - echo $JAVA_HOME
+      - java -version
+      - cd /usr/lib/jvm
+      - ls
+      - export JAVA_HOME=/usr/lib/jvm/java-openjdk
+      - cd $JAVA_HOME/bin
+      - java -version
+      - echo configure java command
+      - alternatives --install /usr/bin/java java /usr/lib/jvm/java-openjdk/bin/java 20000
+      - alternatives --set java /usr/lib/jvm/java-openjdk/bin/java
+      - alternatives --display java
+      - echo configure javac command
+      - alternatives --install /usr/bin/javac javac /usr/lib/jvm/java-openjdk/bin/javac 20000
+      - alternatives --set javac /usr/lib/jvm/java-openjdk/bin/javac
+      - alternatives --display javac
+      - echo show updated java version
+      - java -version
+      - cd $CODEBUILD_SRC_DIR
   build:
     commands:
       - java -version
