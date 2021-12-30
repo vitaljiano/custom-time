@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       - uname -a
-      - sudo yum update -y
       - echo list available openjdk packages
       - yum list *openjdk*
       - echo install openjdk packages
