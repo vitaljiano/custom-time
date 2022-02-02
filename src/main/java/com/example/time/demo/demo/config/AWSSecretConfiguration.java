@@ -64,6 +64,7 @@ public class AWSSecretConfiguration implements ApplicationListener<ApplicationPr
             else
                 secret.decodedBinarySecret = new String(Base64.getDecoder().decode(getSecretValueResponse.secretBinary().asByteBuffer()).array());
         } catch (SecretsManagerException e) {
+            e.printStackTrace();
         }
         return secret;
     }

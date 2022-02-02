@@ -31,7 +31,7 @@ public class CustomTimeContainerTest extends CustomTimeAbstractIntegrationTest {
     public static MySQLContainer<?> mysqlSQLContainer = new MySQLContainer<>("mysql:latest")
             .withDatabaseName("demo_time")
             .withUsername("root")
-            .withPassword("123456789");
+            .withPassword("root");
 
     @DynamicPropertySource
     static void properties(DynamicPropertyRegistry registry) {
