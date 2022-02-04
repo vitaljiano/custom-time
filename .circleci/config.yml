@@ -6,7 +6,7 @@ workflows:
     jobs:
       - eb/deploy:
           context: aws-creds
-          environment-name: Elasticdemotimev14-env
+          environment-name: Elasticdemotimev16-env
           filters:
             branches:
               only:
