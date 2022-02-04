@@ -45,13 +45,15 @@ jobs:
           # run tests!
       - run:
           mvn -e test -DargLine="-Dspring.profiles.active=cicd"
-#  eb/deploy:
-#    context: aws-creds
-#    environment-name: Elasticdemotimev14-env
-#      filters:
-#        branches:
-#          only:
-#              - master
+    eb/deploy:
+      context: aws-creds
+      environment-name: Elasticdemotimev14-env
+        filters:
+          branches:
+            only:
+              - master
+      label: version-<<pipeline.number>>
+        requires:
 workflows:
   build_and_test:
     jobs:
