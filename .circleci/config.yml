@@ -24,8 +24,8 @@ jobs:
           name: Deploy to Dev
           command: |
             sudo apt-get install python-setuptools
-            sudo easy_install pip
-            sudo pip install awsebcli --upgrade            
+            sudo pip3 install --upgrade pip
+            sudo pip3 install awsebcli --upgrade            
             eb use Elasticdemotimev16-env 
             eb deploy -v 
   
