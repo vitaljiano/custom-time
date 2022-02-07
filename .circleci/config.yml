@@ -26,8 +26,8 @@ jobs:
       - eb/setup
       - run:
           command: |
-              eb deploy <<parameters.environment-name>>
-          working_directory: <<parameters.app-dir>>
+              eb deploy Elasticdemotimev16-env
+          working_directory: ~/demo
 workflows:
   version: 2
   build-deploy:
