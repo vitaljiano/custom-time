@@ -15,16 +15,19 @@ jobs:
             mvn package
             zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile 
   deploy:
-    working_directory: ~/demo
+
     docker:
       - image: cimg/base:stable
+    parameters:
+      app-dir: ~/demo
+      environment-name: Elasticdemotimev16-env
     steps:
       - checkout
       - eb/setup
       - run:
-          eb use Elasticdemotimev16-env
-          eb deploy Elasticdemotimev16-env
-
+          command: |
+              eb deploy <<parameters.environment-name>>
+          working_directory: <<parameters.app-dir>>
 workflows:
   version: 2
   build-deploy:
