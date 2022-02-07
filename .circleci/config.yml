@@ -15,16 +15,21 @@ jobs:
             mvn package
             zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile 
   deploy:
+    working_directory: ~/demo
     docker:
       - image: cimg/base:stable
     steps:
       - checkout
       - eb/setup
       - run:
+          name: view-files
+          command: |
+            ls -a
+      - run:
           command: |
               eb init elastic-demo-time-v1.6 -r $AWS_DEFAULT_REGION -p corretto
               eb deploy Elasticdemotimev16-env
-          working_directory: ~/demo
+
 workflows:
   version: 2
   build-deploy:
