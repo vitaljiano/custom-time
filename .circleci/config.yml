@@ -14,24 +14,31 @@ jobs:
           command: |
             mvn package
             zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile 
-  
+  deploy:
+    working_directory: ~/demo
+    docker:
+      - image: circleci/openjdk:11.0.2-jdk
+    steps:
+      - checkout
+      - eb/setup
+      - run:
+          eb use Elasticdemotimev16-env
+          eb deploy Elasticdemotimev16-env
 
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
-      - eb/deploy:
-          context: aws-creds
-            environment-name: Elasticdemotimev16-env
-            label: version-<<pipeline.number>>
-            requires:
-              - build
+      - deploy:
+          requires:
+            - build
 
 
 
 
-  #jobs:
+
+            #jobs:
   #  build:
   #    docker:
   #      # specify the version you desire here
