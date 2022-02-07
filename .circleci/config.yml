@@ -17,7 +17,7 @@ jobs:
 
       - run:
           name: Deploying
-          command: eb deploy master
+          command: eb deploy Elasticdemotimev16-env
 
 workflows:
   version: 2
