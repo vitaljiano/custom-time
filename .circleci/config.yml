@@ -23,6 +23,7 @@ jobs:
       - run:
           name: Deploy to Dev
           command: |
+            sudo apt-get update
             sudo apt-get install python-setuptools
             sudo apt install python3-pip
             sudo pip3 install --upgrade pip
