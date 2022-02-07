@@ -15,7 +15,7 @@ jobs:
             mvn package
             zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile 
       - store_artifacts:
-           - path: demo-0.0.1.zip     
+          path: demo-0.0.1.zip     
   deploy:
     working_directory: ~/demo
     docker:
