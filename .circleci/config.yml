@@ -29,7 +29,15 @@ jobs:
             eb use Elasticdemotimev16-env 
             eb deploy -v 
   
-  
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy-to-dev:
+         requires:
+           - build
+
   
   
 
