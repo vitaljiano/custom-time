@@ -21,12 +21,12 @@ workflows:
   build-deploy:
     jobs:
       - build
-      eb/deploy:
-        context: aws-creds
-          environment-name: Elasticdemotimev16-env
-          label: version-<<pipeline.number>>
-          requires:
-            - build
+      - eb/deploy:
+          context: aws-creds
+            environment-name: Elasticdemotimev16-env
+            label: version-<<pipeline.number>>
+            requires:
+              - build
 
 
 
