@@ -2,17 +2,20 @@ version: 2.1
 orbs:
   eb: circleci/aws-elastic-beanstalk@1.0.0
 
-  workflows:
-    elastic-beanstalk-workflow:
-      jobs:
-        - eb/deploy:
-            context: aws-creds
+workflows:
+  elastic-beanstalk-workflow:
+    jobs:
+      - eb/deploy:
+          context: aws-creds
             environment-name: Elasticdemotimev16-env
             filters:
               branches:
                 only:
                   - master
-            label: version-<<pipeline.number>>
+            label:
+              version-<<pipeline.number>>
+
+
 
 
 
