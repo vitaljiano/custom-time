@@ -14,6 +14,8 @@ jobs:
           command: |
             mvn package
             zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile 
+      - store_artifacts:
+           - path: demo-0.0.1.zip     
   deploy:
     working_directory: ~/demo
     docker:
@@ -25,8 +27,7 @@ jobs:
           name: view-files
           command: |
             ls -a
-            mvn package
-            zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile
+           
       - run:
           command: |
               eb init elastic-demo-time-v1.6 -r $AWS_DEFAULT_REGION -p corretto
