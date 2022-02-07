@@ -1,3 +1,10 @@
-version: 2
-deploy:
-  artifact: Elasticdemotimev16-env
+version: 2.1
+branch-defaults:
+  master:
+    environment: master
+global:
+  application_name: elastic-demo-time-v1.6
+  default_ec2_keyname: my-keypair
+  default_platform: Corretto 11 running on 64bit Amazon Linux 2
+  default_region: eu-central-1
+  sc: git
