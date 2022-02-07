@@ -12,7 +12,7 @@ jobs:
           command: |
             mvn package
             zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile 
-          
+  
 
   deploy-to-dev:
     docker:
@@ -23,25 +23,28 @@ jobs:
       - run:
           name: Deploy to Dev
           command: |
+            sudo apt-get clean
+            sudo mv /var/lib/apt/lists /tmp
+            sudo apt-get clean
             sudo apt-get update
             sudo apt-get install python-setuptools
             sudo apt install python3-pip
             sudo pip3 install --upgrade pip
-            sudo pip3 install awsebcli --upgrade            
-            eb use Elasticdemotimev16-env 
-            eb deploy -v 
-  
+            sudo pip3 install awsebcli --upgrade
+            eb use Elasticdemotimev16-env
+            eb deploy -v
+
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
       - deploy-to-dev:
-         requires:
-           - build
+          requires:
+            - build
 
-  
-  
+
+
 
   #jobs:
   #  build:
