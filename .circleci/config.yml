@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Deploy to Dev
           command: |
-            sudo apt-get install python3-setuptools
+            sudo apt-get install python-setuptools
             sudo apt install python3-pip
             sudo pip3 install --upgrade pip
             sudo pip3 install awsebcli --upgrade            
