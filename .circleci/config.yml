@@ -16,25 +16,15 @@ jobs:
             zip -j demo-0.0.1.zip target/demo-0.0.1.jar Dockerfile 
   
 
-  deploy-to-dev:
-    docker:
-      - image: circleci/openjdk:11.0.2-jdk
-    steps:
-      - checkout:
-          path: ~/demo
-      eb/deploy:
-        context: aws-creds
-          environment-name: Elasticdemotimev16-env
-          label: version-<<pipeline.number>>
-          requires:
-            - build
-
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
-      - deploy-to-dev:
+      eb/deploy:
+        context: aws-creds
+          environment-name: Elasticdemotimev16-env
+          label: version-<<pipeline.number>>
           requires:
             - build
 
