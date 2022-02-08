@@ -44,6 +44,11 @@ jobs:
           command: |
             mvn -e test -DargLine="-Dspring.profiles.active=cicd"
             mvn package -Dmaven.test.skip
+      - persist_to_workspace:
+          root: .
+          paths:
+            - target/demo-0.0.1.jar
+
   deploy:
     working_directory: ~/app
     docker:
@@ -71,11 +76,6 @@ workflows:
       - build
   deploy:
     jobs:
-      - persist_to_workspace:
-            root: /tmp/workspace
-            paths:
-              - target/application.jar
-              - build/*
       - deploy:
           filters:
             branches:
