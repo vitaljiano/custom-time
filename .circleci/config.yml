@@ -71,6 +71,11 @@ workflows:
       - build
   deploy:
     jobs:
+      - persist_to_workspace:
+            root: /tmp/workspace
+            paths:
+              - target/application.jar
+              - build/*
       - deploy:
           filters:
             branches:
