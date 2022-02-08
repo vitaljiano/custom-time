@@ -47,7 +47,7 @@ jobs:
       - run:
           command: |
             mvn -e test -DargLine="-Dspring.profiles.active=cicd"
-            mvn package -DoutputDirectory=tmp/workspace/target -Dmaven.test.skip
+            mvn package -DoutputDirectory=. -Dmaven.test.skip
 
   deploy:
     working_directory: ~/app
