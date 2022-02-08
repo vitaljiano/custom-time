@@ -47,15 +47,15 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - target/demo-0.0.1.jar
-
+            - .
   deploy:
     working_directory: ~/app
     docker:
       - image: cimg/base:stable
     steps:
+      - attach_workspace:
+            at: .
       - checkout
-
       - run:
           name: Installing deployment dependencies
           working_directory: /
