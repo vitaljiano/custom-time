@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Deploying
           command: |
-          eb init demo-time-eb
+          eb init demo-time-eb -r eu-central-1 -p Corretto 
           eb deploy Elasticdemotimev16-env
 
 workflows:
