@@ -3,7 +3,7 @@ branch-defaults:
   master:
     environment: Elasticdemotimev16-env
 global:
-  application_name: elastic-demo-time-v1.6
+  application_name: elastic-demo-time-v1.6-source
   default_ec2_keyname: my-keypair
   default_platform: Corretto 11 running on 64bit Amazon Linux 2
   default_region: eu-central-1
