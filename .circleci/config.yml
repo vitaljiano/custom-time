@@ -45,7 +45,7 @@ jobs:
             mvn -e test -DargLine="-Dspring.profiles.active=cicd"
             mvn package -Dmaven.test.skip
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: tmp/workspace
           paths:
             - .
   deploy:
@@ -54,7 +54,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-            at: /tmp/workspace
+            at: tmp/workspace
       - checkout
       - run:
           name: Installing deployment dependencies
