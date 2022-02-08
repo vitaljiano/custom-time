@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Deploying
           command: |
-          eb init
+          eb init demo-time-eb
           eb deploy Elasticdemotimev16-env
 
 workflows:
