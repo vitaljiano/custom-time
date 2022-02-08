@@ -55,7 +55,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-            at: tmp/workspace
+            at: /tmp/workspace
 
       - run:
           name: Installing deployment dependencies
