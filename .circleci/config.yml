@@ -53,9 +53,10 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
+      - checkout
       - attach_workspace:
             at: tmp/workspace
-      - checkout
+
       - run:
           name: Installing deployment dependencies
           working_directory: /
