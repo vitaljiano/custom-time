@@ -4,7 +4,6 @@ branch-defaults:
     environment: Elasticdemotimev16-env
 global:
 
-  default_ec2_keyname: my-keypair
   default_platform: Corretto 11 running on 64bit Amazon Linux 2
   default_region: eu-central-1
   sc: git
