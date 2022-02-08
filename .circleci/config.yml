@@ -42,6 +42,7 @@ jobs:
             # run tests!
         - run:
             mvn -e test -DargLine="-Dspring.profiles.active=cicd"
+            mvn package -Dmaven.test.skip
   deploy:
     working_directory: ~/app
     docker:
