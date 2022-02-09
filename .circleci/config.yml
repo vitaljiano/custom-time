@@ -76,13 +76,11 @@ workflows:
   build:
     jobs:
       - build
-  deploy:
-    jobs:
-      - deploy:
-          filters:
-            branches:
-              only:
-                - master
+        - deploy:
+            filters:
+              branches:
+                only:
+                  - master
 
 
 
