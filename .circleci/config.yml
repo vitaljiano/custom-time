@@ -48,8 +48,8 @@ jobs:
 
       - run:
           mvn package -Dmaven.test.skip
-      - run:
-          sudo cp -a /home/circleci/repo/target/demo-0.0.1.jar /home/circleci/repo/
+#      - run:
+#          sudo cp -a /home/circleci/repo/target/demo-0.0.1.jar /home/circleci/repo/
       - run:
           sudo ls
       - persist_to_workspace:
@@ -58,7 +58,7 @@ jobs:
             - .
 
   deploy:
-    working_directory: ~/app
+    working_directory: ~/repo
     docker:
       - image: cimg/base:stable
     steps:
