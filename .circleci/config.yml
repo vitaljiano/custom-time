@@ -42,7 +42,8 @@ jobs:
           # run tests!
       - persist_to_workspace:
           root: .
-
+          paths:
+            - .
       - run:
           mvn -e test -DargLine="-Dspring.profiles.active=cicd"
       - run:
@@ -61,7 +62,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-
+      - run:
+          sudo ls
       - run:
           name: Installing deployment dependencies
           working_directory: /
