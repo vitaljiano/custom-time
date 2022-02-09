@@ -41,9 +41,8 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
           # run tests!
       - persist_to_workspace:
-          root: /tmp
-          paths:
-            - jar
+          root: .
+
       - run:
           mvn -e test -DargLine="-Dspring.profiles.active=cicd"
       - run:
@@ -52,8 +51,7 @@ jobs:
           sudo ls
       - run:
           mvn package -Dmaven.test.skip
-      - run:
-          sudo cp -R target /tmp/jar
+
 
   deploy:
     working_directory: ~/app
@@ -62,7 +60,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/jar
+          at: .
 
       - run:
           name: Installing deployment dependencies
