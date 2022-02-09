@@ -40,10 +40,7 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
           # run tests!
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+
       - run:
           mvn -e test -DargLine="-Dspring.profiles.active=cicd"
       - run:
@@ -55,6 +52,10 @@ jobs:
           sudo cp -a /home/circleci/repo/target/demo-0.0.1.jar /home/circleci/repo/
       - run:
           sudo ls
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   deploy:
     working_directory: ~/app
@@ -62,9 +63,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
-#      - attach_workspace:
-#          at: .
-
+      - attach_workspace:
+          at: .
       - run:
           sudo pwd
       - run:
