@@ -50,6 +50,8 @@ jobs:
           sudo pwd
       - run:
           mvn package -DoutputDirectory=/home/circleci/repo -Dmaven.test.skip
+      - run:
+          sudo ls
 
   deploy:
     working_directory: ~/app
