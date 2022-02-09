@@ -53,7 +53,7 @@ jobs:
       - run:
           mvn package -Dmaven.test.skip
       - run:
-          sudo cp -R /home/circleci/repo/target /home/circleci/repo
+          sudo cp -R target .
       - run:
           sudo ls
 
