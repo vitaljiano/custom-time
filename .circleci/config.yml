@@ -50,12 +50,13 @@ jobs:
           mvn package -Dmaven.test.skip
 #      - run:
 #          sudo cp -a /home/circleci/repo/target/demo-0.0.1.jar /home/circleci/repo/
-      - run:
-          sudo ls
+
       - persist_to_workspace:
           root: .
           paths:
             - .
+      - run:
+          sudo ls
 
   deploy:
     working_directory: ~/repo

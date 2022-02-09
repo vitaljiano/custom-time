@@ -7,3 +7,6 @@ global:
   default_platform: Corretto 11 running on 64bit Amazon Linux 2
   default_region: eu-central-1
   sc: git
+
+deploy:
+  artifact: target/demo-0.0.1.jar
