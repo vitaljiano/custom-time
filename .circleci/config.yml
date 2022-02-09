@@ -43,13 +43,13 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            -  .
+            - .
       - run:
-          command: |
-            mvn -e test -DargLine="-Dspring.profiles.active=cicd"
-            mvn package -DoutputDirectory=/home/circleci/repo/ -Dmaven.test.skip
+          mvn -e test -DargLine="-Dspring.profiles.active=cicd"
       - run:
           sudo pwd
+      - run:
+          mvn package -DoutputDirectory=/home/circleci/repo -Dmaven.test.skip
 
   deploy:
     working_directory: ~/app
@@ -58,7 +58,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-            at: .
+          at: .
 
       - run:
           name: Installing deployment dependencies
@@ -88,7 +88,7 @@ workflows:
 
 
 
-              #jobs:
+            #jobs:
   #
 
   # eb/deploy:
