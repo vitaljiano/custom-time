@@ -65,7 +65,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          sudo cd /home/circleci/repo
+          cd /home/circleci/repo
       - run:
           sudo pwd
       - run:
