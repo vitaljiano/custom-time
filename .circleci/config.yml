@@ -47,11 +47,14 @@ jobs:
       - run:
           mvn -e test -DargLine="-Dspring.profiles.active=cicd"
       - run:
+          commands: |
           sudo pwd
+          sudo ls
       - run:
           mvn package -Dmaven.test.skip
 
       - run:
+          commands: |
           sudo cp -R /home/circleci/repo/target /home/circleci/repo
           sudo ls
 
