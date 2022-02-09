@@ -47,7 +47,9 @@ jobs:
       - run:
           command: |
             mvn -e test -DargLine="-Dspring.profiles.active=cicd"
-            mvn package -DoutputDirectory=. -Dmaven.test.skip
+            mvn package -DoutputDirectory=/home/circleci/repo/ -Dmaven.test.skip
+      - run:
+          sudo pwd
 
   deploy:
     working_directory: ~/app
