@@ -43,8 +43,8 @@ jobs:
 
       - run:
           command: |
-          mvn -e test -DargLine="-Dspring.profiles.active=cicd"
-          mvn package -Dmaven.test.skip
+            mvn -e test -DargLine="-Dspring.profiles.active=cicd"
+            mvn package -Dmaven.test.skip
 
       - persist_to_workspace:
           root: .
