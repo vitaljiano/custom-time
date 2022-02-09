@@ -65,6 +65,8 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          sudo pwd
+      - run:
           sudo ls
       - run:
           name: Installing deployment dependencies
