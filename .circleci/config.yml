@@ -52,6 +52,8 @@ jobs:
           sudo ls
       - run:
           mvn package -Dmaven.test.skip
+      - run:
+          sudo cp -a /home/circleci/repo/target /home/circleci/repo
 
 
   deploy:
