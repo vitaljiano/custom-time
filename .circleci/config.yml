@@ -41,7 +41,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
           # run tests!
       - persist_to_workspace:
-          root: .
+          root: /tmp
           paths:
             - .
       - run:
@@ -53,7 +53,7 @@ jobs:
       - run:
           mvn package -Dmaven.test.skip
       - run:
-          sudo cp -R target .
+          sudo cp -R target /tmp
       - run:
           sudo ls
 
