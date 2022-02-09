@@ -42,21 +42,14 @@ jobs:
           # run tests!
 
       - run:
+          command: |
           mvn -e test -DargLine="-Dspring.profiles.active=cicd"
-      - run:
-          sudo pwd
-
-      - run:
           mvn package -Dmaven.test.skip
-#      - run:
-#          sudo cp -a /home/circleci/repo/target/demo-0.0.1.jar /home/circleci/repo/
 
       - persist_to_workspace:
           root: .
           paths:
             - .
-      - run:
-          sudo ls
 
   deploy:
     working_directory: ~/repo
@@ -66,10 +59,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          sudo pwd
-      - run:
-          sudo ls
+
       - run:
           name: Installing deployment dependencies
           working_directory: /
@@ -98,20 +88,4 @@ workflows:
 
 
 
-            #jobs:
-  #
 
-  # eb/deploy:
-  #    context: aws-creds
-  #    environment-name: Elasticdemotimev14-env
-  #      filters:
-  #        branches:
-  #          only:
-  #            - master
-  #    label: version-<<pipeline.number>>
-  #      requires:
-  #workflows:
-  #  build_and_test:
-  #    jobs:
-  #      - build
-  
