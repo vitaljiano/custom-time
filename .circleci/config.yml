@@ -1,56 +1,51 @@
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: cimg/openjdk:17.0.2
-        #specify system properties
+version: 2.1
+orbs:
+  eb: circleci/aws-elastic-beanstalk@1.0.0
+  jobs:
+    build:
+      working_directory: ~/project
+        machine:
+        image: ubuntu-2004:202111-02
+        resource_class: medium
+          steps:
+              - checkout
+                - run: sudo apt update
+                - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password password 123456789'
+                - run: sudo debconf-set-selections \<<< 'mysql-server mysql-server/root_password_again password 123456789'
+                - run: sudo apt-get install mysql-server
+                - run: sudo systemctl start mysql
+                - run: mysql -u root -p123456789 -e "SET @@global.time_zone = '+02:00'"
+                - run: mysql -u root -p123456789 -e "create database demo_time_test"
+                - run: mysql  -u root -p123456789 -e "exit"
+                - run: wget https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz
+                - run: sudo tar xvf openjdk-17_linux-x64_bin.tar.gz
+                - run: sudo mv jdk-17 /usr/lib/jvm/
+                - run: export JAVA_HOME=/usr/lib/jvm/jdk-17
+                - run: export PATH=$PATH:$JAVA_HOME/bin
+                - run: source ~/.bashrc
 
-        # Customize the JVM maximum heap limit
-        # Specify our database service here
-        # CircleCI maintains a library of pre-built images
-      - image: mysql:8.0.27
-        environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_ROOT_PASSWORD: '123456789'
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: Wait for Database Connection
-          # preinstalled in circleci/* docker image
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      #install mysql client
-      - run: sudo apt-get update && sudo apt-get dist-upgrade
-      - run: sudo apt-get install mysql-client
-      # create databases
+                - run: sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk-17/bin/java" 1
+                - run: sudo update-alternatives --set java /usr/lib/jvm/jdk-17/bin/java
+                - run: java -version
 
-      - run: mysql -h 127.0.0.1 -u root -p123456789 -e "SET @@global.time_zone = UTC"
-      - run: mysql -h 127.0.0.1 -u root -p123456789 -e "create database demo_time_test"
+                - run: wget https://downloads.apache.org/maven/maven-3/3.6.3/binaries//apache-maven-3.6.3-bin.tar.gz -P /tmp
+                - run: sudo tar xf /tmp/apache-maven-*.tar.gz -C /opt
+                - run: export M2_HOME=/usr/local/apache-maven
+                - run: export MAVEN_HOME=/usr/local/apache-maven
+                - run: export PATH=${M2_HOME}/bin:${PATH}
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run: mvn dependency:go-offline
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-          # run tests!
+                - run: mvn dependency:go-offline
+            ##
+            #            # run tests!
+                - run:
+                    command: |
+                      mvn -e test -DargLine="-Dspring.profiles.active=cicd"
+                      mvn package -Dmaven.test.skip
 
-      - run:
-          command: |
-            mvn -e test -DargLine="-Dspring.profiles.active=cicd"
-            mvn package -Dmaven.test.skip
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
+                - persist_to_workspace:
+                    root: .
+                    paths:
+                      - .
   deploy:
     working_directory: ~/repo
     docker:
@@ -85,7 +80,3 @@ workflows:
                 - master
           requires:
             - build
-
-
-
-

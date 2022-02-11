@@ -1,0 +1,91 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: cimg/openjdk:17.0.2
+        #specify system properties
+
+        # Customize the JVM maximum heap limit
+        # Specify our database service here
+        # CircleCI maintains a library of pre-built images
+      - image: mysql:8.0.27
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_ROOT_PASSWORD: '123456789'
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Wait for Database Connection
+          # preinstalled in circleci/* docker image
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      #install mysql client
+      - run: sudo apt-get update && sudo apt-get dist-upgrade
+      - run: sudo apt-get install mysql-client
+      # create databases
+
+      - run: mysql -h 127.0.0.1 -u root -p123456789 -e "SET @@global.time_zone = UTC"
+      - run: mysql -h 127.0.0.1 -u root -p123456789 -e "create database demo_time_test"
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+          # run tests!
+
+      - run:
+          command: |
+            mvn -e test -DargLine="-Dspring.profiles.active=cicd"
+            mvn package -Dmaven.test.skip
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  deploy:
+    working_directory: ~/repo
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+
+      - run:
+          name: Installing deployment dependencies
+          working_directory: /
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python3-pip python3-dev build-essential
+            sudo pip3 install awsebcli
+
+      - run:
+          name: Deploying
+          command:
+            eb deploy Elasticdemotimev16-env
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build
+
+
+
+
