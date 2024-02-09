@@ -53,11 +53,4 @@ public class TimeServiceImpl implements TimeService {
         repository.save(customTime);
         return customTime;
     }
-    public void showTime(){
-        System.out.printf(LocalTime.now().toString());
-    }
-
-    public void showTime2(){
-        System.out.printf(LocalTime.now().toString());
-    }
 }
