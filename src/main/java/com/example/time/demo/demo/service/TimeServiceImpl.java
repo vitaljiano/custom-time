@@ -56,4 +56,8 @@ public class TimeServiceImpl implements TimeService {
     public void showTime(){
         System.out.printf(LocalTime.now().toString());
     }
+
+    public void showTime2(){
+        System.out.printf(LocalTime.now().toString());
+    }
 }
