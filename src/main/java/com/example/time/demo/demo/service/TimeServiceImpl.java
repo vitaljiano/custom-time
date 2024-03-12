@@ -52,13 +52,6 @@ public class TimeServiceImpl implements TimeService {
                 .build();
         repository.save(customTime);
 
-
-
-
-
-
-        System.out.println("Hello");
-
         return customTime;
 
 
