@@ -43,14 +43,8 @@ public class TimeServiceImpl implements TimeService {
 
     @Override
     public CustomTime setNowTime() {
-        com.example.time.demo.demo.model.CustomTime customTime = com.example.time.demo.demo.model.CustomTime.builder()
-                .localDateTime(LocalDateTime.now())
-                .localTime(LocalTime.now())
-                .offsetDateTime(OffsetDateTime.now())
-                .zonedDateTime(ZonedDateTime.now())
-                .instantTime(Instant.now())
-                .build();
-        repository.save(customTime);
+
+        repository.save(null);
 
 
 
@@ -59,7 +53,7 @@ public class TimeServiceImpl implements TimeService {
 
         System.out.println("Hello");
 
-        return customTime;
+        return CustomTime.builder().build();
 
 
     }
