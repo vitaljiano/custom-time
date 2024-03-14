@@ -25,8 +25,8 @@ public class TimeServiceImpl implements TimeService {
         if (id > 100) {
             throw new IllegalArgumentException();
         }
-        return  repository.findById(id).orElseThrow(
-                        () -> new TimeNotFoundException("this time not found"));
+        return repository.findById(id).orElseThrow(
+                () -> new TimeNotFoundException("this time not found"));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class TimeServiceImpl implements TimeService {
     @Override
     @Transactional
     public CustomTime save(CustomTime customTimeDto) {
-      return   repository.save(customTimeDto);
+        return repository.save(customTimeDto);
     }
 
 
@@ -51,16 +51,6 @@ public class TimeServiceImpl implements TimeService {
                 .instantTime(Instant.now())
                 .build();
         repository.save(customTime);
-
-
-
-
-
-
-        System.out.println("Hello");
-
         return customTime;
-
-
-    }
+            }
 }
